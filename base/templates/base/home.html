@@ -2,129 +2,134 @@
 {% load static %}
 {% block content %}
 
-
-<section class="hero">
-    <div class="hero--content">
-        <div class="hero--content--intro">
-            <img id="profile_pic" src="{% static 'images/dennis.jpg' %}">
-            <h1 class="intro--name">Dennis <br> Ivanov</h1>
-        </div>
-
-        <div class="hero--content--subheadline">
-
-            <h3 class="description">FullStack Developer</h3>
-            <p class="slogan">I teach people how to code and build cool things</p>
-        </div>
-    </div>
-
-</section>
-
-<section class="container section--2">
-
-    <h3>My Projects</h3>
-    <h5>Projects that makes my journey worthwhile</h5>
-    <div class="projects--wrapper">
-
-        {% for project in projects %}
-        <div class="project--column">
-            <a href="{% url 'project' project.id %}">
-                <img class="project--thumbnail" src="{{project.thumbnail.url}}">
-            </a>
-            <div class="project--body">
-                <h5>{{project.title}}</h5>
+    <section class="hero">
+        <div class="hero--content">
+            <div class="hero--content--intro">
+                <img src="{% static 'images/dennis.jpg' %}"
+                    alt="hero"
+                    id="hero-image">
+                <h1 class="intro--name"> Yosri
+                    <br> Azabou</h1>
+            </div>
+            <div class="hero--content--subsection">
+                <H3 class="description">Computer Science Student</H3>
+                <p class="slogan"> I am a computer science student at the University
+                    of Tunis. I am currently in my third year of studies.
+                    I am passionate about web development, and I am always
+                    looking for new challenges. or challenges looking for me </p>
             </div>
         </div>
-        {% empty %}
+    </section>
 
-        <h3>There are no projects in the database...</h3 {% endfor %} </div>
+    <section class="container">
 
+        <h2>My Projects</h2>
 
+        <h4>Projects that makes my Journey Worthwile</h4>
+
+        <div class="projects--wrapper">
+            {% for project in projects %}
+                <div class="project--column">
+                    <a href="{% url 'project' project.id %}">
+
+                        <img class="project--thumbnail" src="{{ project.thumbnail.url }}" alt="project image">
+
+                    </a>
+                    <div class="project--body">
+
+                        <h5>
+                            {{ project.title }}
+                        </h5>
+
+                    </div>
+
+                </div>
+            {% empty %}
+                <H3> No projects in the database yet </H3>
+            {% endfor %}
+        </div>
         <div class="about--wrapper">
-            <h3>More About Me</h3>
 
-            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-                industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-                and
-                scrambled it to make a type specimen book.</p>
-            <p> It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-                essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets
-                containing
-                Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
-                including
-                versions of Lorem Ipsum.</p>
+            <h2>
+                Mission statement
+            </h2>
+
+            {{ mission.content }}
+
+
         </div>
 
-</section>
+    </section>
 
-<section class="section--1">
-    <div class="skills--container">
-        <h3>More About Me</h3>
+    <section class="section--1--skills">
 
-        {% for skill in detailedSkills %}
-        <div class="skill--wrapper">
-            {% if skill.logo %}
-            <img class="skill--logo" src="{{skill.logo.url}}">
-            {% endif %}
-            <div>
-                <h5>{{skill.title}}</h5>
-                <p>{{skill.body}}</p>
-            </div>
+        <div class="skills--container">
 
-        </div>
-        {% endfor %}
+            <h2>
+                Skills
+            </h2>
+            {% for skill in detailedSkills %}
+                <div>
+                    <div class="skill--wrapper">
+                        {% if skill.logo %}
+                            <img class="skill--logo" src="{{ skill.logo.url }}">
+                        {% endif %}
+                        <div>
+                            <h5>
+                                {{ skill.title }}
+                            </h5>
+                            <p>
+                                {{ skill.body }}
+                            </p>
+                        </div>
+                    </div>
 
 
-        <h4>Other Skills</h4>
-        <div class="other--skills--wrapper">
+                    {% if request.user.is_authenticated %}
+                        <a class="btn btn-warning" href="{% url 'edit-skills' skill.id %}">Edit</a>
+                                    <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
+                    {% endif %}
+
+                </div>
+
+            {% empty %}
+                <H3> No skills in the database yet </H3>
+            {% endfor %}
+
+
+            <H3> Other Skills</H3>
             {% for skill in skills %}
-            <div class="skill--tag">
-                <span>{{skill.title}}</span>
-            </div>
+                <div class="other--skills--wapper">
+
+                    <div>
+                        <div class="skill--tag">
+                            <span>{{ skill.title }}</span>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                            <a class="btn btn-warning" href="{% url 'edit-skills' skill.id %}">Edit</a>
+                                        <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+            {% empty %}
+                <H3> No skills in the database yet </H3>
             {% endfor %}
-
         </div>
-    </div>
-
-
-</section>
-
-
-<section class="section--2">
-    <div class="skills--container">
-        <h3>Endorsements</h3>
-        <a class="btn btn-primary my-3" href="{% url 'add-endorsement' %}">Add Endorsement</a>
-
-        {% for i in endorsements %}
-        <div style="margin-bottom: 1em;" class="card">
-            <div class="card-body">
-                <h5>{{i.name}}</h5>
-                <p>{{i.body}}</p>
-            </div>
-
+    </section>
+    <section class="section--2--contactform">
+        <div class="container">
+            <form class="contact--form" method="POST">
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">{{ field.label }}</label>
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <input class="btn btn-primary" type="submit" value="submit">
+            </form>
         </div>
-        {% endfor %}
-    </div>
-
-
-</section>
-
-<section class="section--1">
-    <div class="container">
-        <form class="contact--form" method="POST">
-            {% csrf_token %}
-
-            {% for field in form %}
-
-            <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
-                {{field}}
-            </div>
-
-            {% endfor %}
-
-            <input class="btn btn-primary" type="submit" value="submit">
-        </form>
-    </div>
-</section>
-
+    </section>
 {% endblock content %}
+

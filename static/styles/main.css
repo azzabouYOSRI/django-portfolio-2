@@ -20,16 +20,23 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-} 
+}
 
+/*.container*/
+/*{    margin-left: 50px;*/
+/*}*/
 .nav-link{
     color: #fff;
+        padding: 0 10px;
+
 }
 
 .hero{
-    background-color: #1F2428;
+    background-color: #1f2428;
     min-height: 70vh;
     color: #fff;
+    display: flex;
+    min-width: fit-content;
 
 }
 
@@ -106,7 +113,6 @@ body{
 
 .project--column{
     min-width: 300px;
- 
 }
 
 .project--thumbnail{

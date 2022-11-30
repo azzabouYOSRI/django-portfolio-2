@@ -1,6 +1,6 @@
-from django.urls import path
-from . import views
+# from django.urls import path
+# from . import views
 
-urlpatterns = [
-    path('', views.votingData, name='voting-data'),
-]
+# urlpatterns = [
+#     path('', views.votingData, name='voting-data'),
+# ]
