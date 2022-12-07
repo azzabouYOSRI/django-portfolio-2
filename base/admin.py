@@ -2,13 +2,14 @@ from django.contrib import admin
 
 # Register your models here.
 
-from .models import Project, Skill, Tag, Message, Endorsement, Missionstatement
+from .models import Project, Skill, Message, Refrence, Missionstatement,Personalinfomation,Transcript,Awardsandhonors,Communityservice
 
 admin.site.register(Project)
 admin.site.register(Skill)
-admin.site.register(Tag)
 admin.site.register(Message)
 admin.site.register(Missionstatement)
-# admin.site.register(Endorsement)
-# admin.site.register(Comment)
-# admin.site.register(Question)
+admin.site.register(Refrence)
+admin.site.register(Personalinfomation)
+admin.site.register(Transcript)
+admin.site.register(Awardsandhonors)
+admin.site.register(Communityservice)

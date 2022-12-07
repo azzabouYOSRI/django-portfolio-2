@@ -21,12 +21,25 @@ urlpatterns = [
 
     path('add-mission/', views.addmission_statment, name="add-mission"),
     path('edit-mission/<str:pk>/', views.editmission, name="edit-mission"),
-    path('delete-mission/<str:pk>/', views.deletemission, name="delete-mission")
+    path('delete-mission/<str:pk>/', views.deletemission, name="delete-mission"),
+    path('add-refrence/', views.addrefrence, name="add-refrence"),
+    path('edit-refrence/<str:pk>/', views.editrefrence, name="edit-refrence"),
+    path('delete-refrence/<str:pk>/', views.deleterefrence, name="delete-refrence"),
+    path('add-personalinfomation/', views.addPersonalinfomation, name="add-personalinfomation"),
+    path('edit-personalinfomation/<str:pk>/', views.editPersonalinfomation, name="edit-personalinfomation"),
+    path('delete-personalinfomation/<str:pk>/', views.deletePersonalinfomation, name="delete-personalinfomation"),
+    path('add-transcript/', views.addTranscript, name="add-transcript"),
+    path('edit-transcript/<str:pk>/', views.editTranscript, name="edit-transcript"),
+    path('delete-transcript/<str:pk>/', views.deleteTranscript, name="delete-transcript"),
+    path('add-award/', views.addAwardsandhonors, name="add-award"),
+    path('edit-award/<str:pk>/', views.editAwardsandhonors, name="edit-award"),
+    path('delete-award/<str:pk>/', views.deleteAwardsandhonors, name="delete-award"),
+    path('add-community/', views.Addcommunityservice, name="add-community"),
+    path('edit-community/<str:pk>/', views.editCommunityservice, name="edit-community"),
+    path('delete-community/<str:pk>/', views.deleteAwardsandhonors, name="delete-community"),
+    path('login/', views.loginUser, name="login"),
+    path('logout/', views.logoutUser, name="logout"),
+    path('register/', views.updateUser, name="update-user"),
 
-    #
-    # path('add-endorsement/', views.addEndorsement, name="add-endorsement"),
-    #
-    # path('donation/', views.donationPage, name="donation"),
-    #
-    # path('chart/', views.chartPage, name="chart"),
+
 ]

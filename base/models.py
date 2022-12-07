@@ -1,3 +1,6 @@
+import numbers
+
+from django.core.exceptions import ValidationError
 from django.db import models
 import uuid
 from ckeditor_uploader.fields import RichTextUploadingField
@@ -13,7 +16,7 @@ class Project(models.Model):
     slug = models.SlugField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
+        primary_key=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -25,7 +28,7 @@ class Skill(models.Model):
     body = models.TextField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
-                          primary_key=True, editable=False)
+        primary_key=True, editable=False)
 
     def __str__(self):
         return self.title
@@ -41,38 +44,11 @@ class Tag(models.Model):
         return self.name
 
 
-class Endorsement(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    body = models.TextField()
-    approved = models.BooleanField(default=False, null=True)
-    featured = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.body[0:50]
-
-
-class Missionstatement(models.Model):
-    content = RichTextUploadingField()
-    created = models.DateTimeField(auto_now_add=True)
+class Message(models.Model):
     id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-
-    def __str__(self):
-        return self.content
-
-
-class Person(models.Model):
-    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
-    name = models.CharField(max_length=100, null=False, blank=False)
-    lastname = models.CharField(max_length=100, null=False, blank=False)
+    name = models.CharField(max_length=100, null=True, blank=False)
+    lastname = models.CharField(max_length=100, null=True, blank=False)
     email = models.EmailField(max_length=50, unique=True, null=False, blank=False)
-
-
-class Meta:
-    abstract = True
-    ordering = ['name']
-
-
-class Message(Person):
     subject = models.CharField(max_length=200, null=True)
     body = models.TextField()
     is_read = models.BooleanField(default=False)
@@ -82,22 +58,11 @@ class Message(Person):
         return self.name
 
 
-class User(Person):
-    function = models.TextField(null=True, blank=True)
-    slogan = models.TextField(null=True, blank=True)
-    password = models.CharField(max_length=100, null=True, blank=True, default='name')
-    profile_picture = models.ImageField(null=True, blank=True)
-
-
-class Meta:
-    db_table = 'user'
-
-
-def __str__(self):
-    return self.name
-
-
-class Refrence(Person):
+class Refrence(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, unique=True, primary_key=True, editable=False)
+    name = models.CharField(max_length=100, null=True, blank=False)
+    lastname = models.CharField(max_length=100, null=True, blank=False)
+    email = models.EmailField(max_length=50, unique=True, null=False, blank=False)
     title = models.CharField(max_length=200)
     thumbnail = models.ImageField(null=True)
     body = RichTextUploadingField()
@@ -140,3 +105,40 @@ class Communityservice(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     id = models.UUIDField(default=uuid.uuid4, unique=True,
                           primary_key=True, editable=False)
+
+
+def validate_only_one_instanceOfMissionstatement(obj):
+    model = obj.__class__
+    if (model.objects.count() > 0 and
+            obj.id != model.objects.get().id):
+        raise ValidationError("Can only create 1 %s instance" % model.__name__)
+
+
+class Missionstatement(models.Model):
+    content = RichTextUploadingField()
+    created = models.DateTimeField(auto_now_add=True)
+    id = numbers
+
+    def clean(self):
+        validate_only_one_instanceOfMissionstatement(self)
+
+
+def validate_only_one_instanceOfPersonalinfomation(obj):
+    model = obj.__class__
+    if (model.objects.count() > 0 and
+            obj.id != model.objects.get().id):
+        raise ValidationError("Can only create 1 %s instance" % model.__name__)
+
+
+class Personalinfomation(models.Model):
+    id = numbers
+    name = models.CharField(max_length=100, null=True, blank=False)
+    lastname = models.CharField(max_length=100, null=True, blank=False)
+    email = models.EmailField(max_length=50, unique=True, null=True, blank=False)
+    function = models.CharField(max_length=100, null=True, blank=True)
+    slogan = models.TextField(null=True, blank=True)
+    password = models.CharField(max_length=100, null=True, blank=True)
+    profile_picture = models.ImageField(null=True, blank=True)
+
+    def clean(self):
+        validate_only_one_instanceOfPersonalinfomation(self)

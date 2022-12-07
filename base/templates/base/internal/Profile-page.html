@@ -1,49 +1,71 @@
 {% extends 'base/main.html' %}
 {% load static %}
 {% block content %}
-<div>
 
-{#    <h1>Welcome {% user.name %} {% user.familyname %} </h1>#}
+    <section class="hero">
+        <div class="hero--content">
+            {% for personalinfomation in personalinfomations %}
 
-    <section>
-        <div>
-            <h2> Personal information</h2>
-{#            <p> Name: {% user.name %} </p>#}
-{#            <p> Lastname: {% user.familyname %} </p>#}
-{#            <p> Email: {% user.email %} </p>#}
-{#            <a href=#>update personal information</a>#}
+            <div class="hero--content--intro">
+                <h1 class="intro--name">
+                    {{ personalinfomation.name }}
+                    <br>    {{ personalinfomation.lastname }}
+                </h1>
+            </div>
+                <div>
+
+            <p><a class = "btn btn-info" href="{% url 'edit-personalinfomation' personalinfomation.id %}">update personal information</a></p>
+
+                </div>
+
+
+                {% empty %}
+            <p><a class = "btn btn-info" href="{% url 'add-personalinfomation' %}">set-up personal infomation</a></p>
+
+            {% endfor %}
         </div>
     </section>
-    <section>
-        <div>
+
+    <section class="container">
+
+
+
+
+
+
+    </section>
+
+    <section class="section--1--skills">
+    <div>
+
+ <div>
             <h2> Portofio</h2>
             <p>
-                <a class="btn btn-default" href="{% url 'inbox' %}">
+                <a class="btn btn-info" href="{% url 'inbox' %}">
                     Inbox
                 </a>
             </p>
 
             <p>
-                <a class="btn btn-default" href="{% url 'add-project' %}">
+                <a class="btn btn-info" href="{% url 'add-project' %}">
                     Add Project
                 </a>
             </p>
 
             <p>
-                <a class="btn btn-default" href="{% url 'add-skill' %}">
+                <a class="btn btn-info" href="{% url 'add-skill' %}">
                     Add Skill
                 </a>
             </p>
 
             <p>
-                <a class="btn btn-default" href="{% url 'add-mission' %}">
+                <a class="btn btn-info" href="{% url 'add-mission' %}">
                     Add Skill
                 </a>
             </p>
 
         </div>
-    </section>
-    <section>
+
         <div>
             <h2>
                 <p>
@@ -51,10 +73,12 @@
                 </p>
             </h2>
         </div>
-    </section>
     <a href=#> Portfolio</a>
-    <a href=#>Account setting</a>
+    <a href="{% url 'update-user' user.id %}">Update account setting</a>
 
 </div>
 
+
+
+    </section>
 {% endblock %}
