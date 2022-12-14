@@ -6,24 +6,19 @@
         <div class="hero--content">
             {% for personalinfomation in personalinfomations %}
 
-            <div class="hero--content--intro">
+                <div class="hero--content--intro">
 
-                <img src="{% static 'images/dennis.jpg' %}"
-                    alt="hero"
-                    id="hero-image">
-                <h1 class="intro--name">
-                    {{ personalinfomation.name }}
-                    <br>    {{ personalinfomation.lastname }}
-                </h1>
-            </div>
-            <div class="hero--content--subsection">
-                <H3 class="description">Computer Science Student</H3>
-                <p class="slogan"> I am a computer science student at the University
-                    of Tunis. I am currently in my third year of studies.
-                    I am passionate about web development, and I am always
-                    looking for new challenges. or challenges looking for me </p>
-            </div>
-                {% empty %}
+                    <img src="{{ personalinfomation.profile_picture.url }}" alt="">
+                    <h1 class="intro--name">
+                        {{ personalinfomation.name }}
+                        <br> {{ personalinfomation.lastname }}
+                    </h1>
+                </div>
+                <div class="hero--content--subsection">
+                    <H3 class="description">{{ personalinfomation.function }}</H3>
+                    <p class="slogan"> {{ personalinfomation.slogan }}</p>
+                </div>
+            {% empty %}
                 <H3> No personalinfomation in the database yet </H3>
             {% endfor %}
         </div>
@@ -52,8 +47,7 @@
                     </div>
 
                 </div>
-            {% empty %}
-                <H3> No projects in the database yet </H3>
+
             {% endfor %}
         </div>
         <div class="about--wrapper">
@@ -93,15 +87,14 @@
                     </div>
 
 
-                    {% if request.personalinfomation.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <a class="btn btn-warning" href="{% url 'edit-skills' skill.id %}">Edit</a>
-                                    <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
+                        <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
                     {% endif %}
 
                 </div>
 
-            {% empty %}
-                <H3> No skills in the database yet </H3>
+
             {% endfor %}
 
 
@@ -113,16 +106,72 @@
                         <div class="skill--tag">
                             <span>{{ skill.title }}</span>
                         </div>
-                        {% if request.personalinfomation.is_authenticated %}
+                        {% if request.user.is_authenticated %}
                             <a class="btn btn-warning" href="{% url 'edit-skills' skill.id %}">Edit</a>
-                                        <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
+                            <a class="btn btn-danger" href="{% url 'delete-skills' skill.id %}">Delete</a>
                         {% endif %}
 
                     </div>
                 </div>
-            {% empty %}
-                <H3> No skills in the database yet </H3>
             {% endfor %}
+        </div>
+    </section>
+    <section>
+        <div>
+            <div>
+                {% for transcript in transcripts %}
+                    <img class="skill--logo" src="{{ transcript.logo.url }}">
+                    <div>            {{ transcripts.title }}
+                    </div>
+                    </div>
+                    </section>
+                    <section>
+                    <div>
+                        {{ transcript.body }}
+                    </div>
+
+                {% endfor %}
+                </div>
+                </div>
+                </section>
+    <section class="section--2--contact">
+        <div>
+            {% for comunityservice in communityservices %}
+                <img class="skill--logo" src="{{ comunityservice.logo.url }}">
+
+                {{ comunityservice.title }}
+                {{ comunityservice.body | safe }}
+            {% empty %}
+                <H3> No personalinfomation in the database yet </H3>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="section--3--contact">
+        <div>
+            {% for award in awardsandhonorss %}
+                <img class="skill--logo" src="{{ award.logo.url }}">
+
+                {{ award.title }}
+                {{ award.body }}
+            {% empty %}
+                <H3> No personalinfomation in the database yet </H3>
+            {% endfor %}
+        </div>
+    </section>
+    <section class="section--4--contact">
+        <div>
+            <div>
+                {% for ref in refrences %}
+                    <img class="skill--logo" src="{{ ref.thumbnail.url }}">
+                    {{ ref.name }}
+                    {{ ref.lastname }}
+                    {{ ref.body }}
+                    {{ ref.email }}
+                    {{ ref.phone }}
+                {% empty %}
+                    <H3> No personalinfomation in the database yet </H3>
+                {% endfor %}
+            </div>
         </div>
     </section>
     <section class="section--2--contactform">

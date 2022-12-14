@@ -22,6 +22,20 @@
 
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
+            {% elif page == 'add' %}
+                <form method='post'>
+                <h1>Register</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{field.label}}</label>
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+
+
             {% else %}
             <form method='post'>
                 <h1>Register</h1>
@@ -36,6 +50,5 @@
             </form>
             {% endif %}
         </div>
-
     </div>
 {% endblock %}

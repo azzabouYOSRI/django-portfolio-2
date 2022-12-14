@@ -39,7 +39,6 @@ urlpatterns = [
     path('delete-community/<str:pk>/', views.deleteAwardsandhonors, name="delete-community"),
     path('login/', views.loginUser, name="login"),
     path('logout/', views.logoutUser, name="logout"),
-    path('register/', views.updateUser, name="update-user"),
-
-
+    path('update/<str:pk>', views.updateUser, name="update-user"),
+    path('add/', views.addUser, name="add-user"),
 ]

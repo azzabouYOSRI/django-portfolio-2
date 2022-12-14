@@ -1,0 +1,11 @@
+{% extends 'base/main.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="hero">
+        <div class="hero--content">
+            <p><a class = "btn btn-info" href="{% url 'login' %}"></a></p>
+            <p><a class = "btn btn-info" href="{% url 'add-user' %}"></a></p>
+        </div>
+    </section>
+{% endblock %}

@@ -1,12 +1,14 @@
 from urllib import request
 
 from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 
 from .forms import ProjectForm, MessageForm, SkillForm, MissionForm, Communityservicefrom, \
     Awardsandhonorsform, Personalinfomationform, Transcriptform, Refrenceform, CustomUserCreationForm
-from .models import Project, Skill, Message, Missionstatement, Communityservice, Awardsandhonors, Personalinfomation, Transcript, Refrence
+from .models import Project, Skill, Message, Missionstatement, Communityservice, Awardsandhonors, Personalinfomation, \
+    Transcript, Refrence
 from django.contrib import messages
 
 
@@ -23,7 +25,7 @@ def homePage(request):
     detailedSkills = Skill.objects.exclude(body='')
 
     skills = Skill.objects.filter(body='')
-    mission = Missionstatement.objects.first()
+    mission = Missionstatement.objects.all()
     form = MessageForm()
 
     if request.method == 'POST':
@@ -32,7 +34,8 @@ def homePage(request):
             form.save()
             messages.success(request, 'You message was successfully sent!.')
     context = {'projects': projects, 'skills': skills, 'detailedSkills': detailedSkills, 'form': form,
-               'mission': mission , 'personalinfomations':personalinfomations , 'transcripts':transcripts , 'refrences':refrences , 'communityservices':communityservices , 'awardsandhonorss':awardsandhonorss}
+               'mission': mission, 'personalinfomations': personalinfomations, 'transcripts': transcripts,
+               'refrences': refrences, 'communityservices': communityservices, 'awardsandhonorss': awardsandhonorss}
     return render(request, 'base/home.html', context)
 
 
@@ -47,7 +50,7 @@ def projectPage(request, pk):
     context = {'project': project}
     return render(request, 'base/internal/project.html', context)
 
-
+@login_required(login_url='login')
 def addProject(request):
     form = ProjectForm()
 
@@ -60,7 +63,7 @@ def addProject(request):
     context = {'form': form}
     return render(request, 'base/forms/project_form.html', context)
 
-
+@login_required(login_url='login')
 def editProject(request, pk):
     project = Project.objects.get(id=pk)
     form = ProjectForm(instance=project)
@@ -128,7 +131,7 @@ def editskills(request, pk):
     context = {'form': form}
     return render(request, 'base/forms/skill_form.html', context)
 
-
+@login_required(login_url='login')
 def deleteskill(request, pk):
     skill = Skill.objects.get(id=pk)
 
@@ -140,7 +143,7 @@ def deleteskill(request, pk):
 
     return render(request, 'base/internal/delete/delete-Skill.html', context)
 
-
+@login_required(login_url='login')
 def addmission_statment(request):
     form = MissionForm()
     b: bool = False
@@ -154,7 +157,7 @@ def addmission_statment(request):
     context = {'form': form}
     return render(request, 'base/forms/mission_form.html', context)
 
-
+@login_required(login_url='login')
 def editmission(request, pk):
     mission = Missionstatement.objects.get(id=pk)
     form = ProjectForm(instance=mission)
@@ -168,7 +171,7 @@ def editmission(request, pk):
     context = {'form': form}
     return render(request, 'base/forms/mission_form.html', context)
 
-
+@login_required(login_url='login')
 def deletemission(request, pk):
     skill = Skill.objects.get(id=pk)
 
@@ -180,7 +183,7 @@ def deletemission(request, pk):
 
     return render(request, 'base/internal/delete/delete-mission.html', context)
 
-
+@login_required(login_url='login')
 def addPersonalinfomation(request):
     form = Personalinfomationform()
 
@@ -192,10 +195,10 @@ def addPersonalinfomation(request):
 
     context = {'form': form}
     return render(request,
-                  'base/forms/Personalinfomation_form.html',
+                  'base/forms/user_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def editPersonalinfomation(request, pk):
     personalinfomation = Personalinfomation.objects.get(id=pk)
     form = Personalinfomationform(instance=personalinfomation)
@@ -208,10 +211,10 @@ def editPersonalinfomation(request, pk):
 
     context = {'form': form}
     return render(request,
-                  'base/forms/Personalinfomation_form.html',
+                  'base/forms/user_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def deletePersonalinfomation(request, pk):
     personalinfomation = Personalinfomation.objects.get(id=pk)
 
@@ -222,10 +225,10 @@ def deletePersonalinfomation(request, pk):
     context = context = {'Personalinfomation': Personalinfomation}
 
     return render(request,
-                  'base/internal/delete/delete-Personalinfomation.html',
+                  'base/internal/delete/delete-User.html',
                   context)
 
-
+@login_required(login_url='login')
 def addTranscript(request):
     form = ProjectForm()
 
@@ -240,7 +243,7 @@ def addTranscript(request):
                   'base/forms/Transcript_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def editTranscript(request, pk):
     transcript = Transcript.objects.get(id=pk)
     form = Transcriptform(instance=Transcript)
@@ -256,7 +259,7 @@ def editTranscript(request, pk):
                   'base/forms/Transcript_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def deleteTranscript(request, pk):
     transcript = Transcript.objects.get(id=pk)
 
@@ -267,10 +270,10 @@ def deleteTranscript(request, pk):
     context = context = {'Transcript': Transcript}
 
     return render(request,
-        'base/internal/delete/delete-Transcript.html',
-        context)
+                  'base/internal/delete/delete-Transcript.html',
+                  context)
 
-
+@login_required(login_url='login')
 def addrefrence(request):
     form = Refrenceform()
 
@@ -283,7 +286,7 @@ def addrefrence(request):
     context = {'form': form}
     return render(request, 'base/forms/endorsement_form.html', context)
 
-
+@login_required(login_url='login')
 def editrefrence(request, pk):
     refrence = Refrence.objects.get(id=pk)
     form = Refrenceform(instance=refrence)
@@ -297,7 +300,7 @@ def editrefrence(request, pk):
     context = {'form': form}
     return render(request, 'base/forms/endorsement_form.html', context)
 
-
+@login_required(login_url='login')
 def deleterefrence(request, pk):
     refrence = Refrence.objects.get(id=pk)
 
@@ -311,7 +314,7 @@ def deleterefrence(request, pk):
                   'base/internal/delete/delete-Endorsement.html',
                   context)
 
-
+@login_required(login_url='login')
 def Addcommunityservice(request):
     form = Communityservicefrom()
 
@@ -326,7 +329,7 @@ def Addcommunityservice(request):
                   'base/forms/Communityservice_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def editCommunityservice(request, pk):
     communityservice = Communityservice.objects.get(id=pk)
     form = Communityservicefrom(instance=communityservice)
@@ -342,7 +345,7 @@ def editCommunityservice(request, pk):
                   'base/forms/Communityservice_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def deleteCommunityservice(request, pk):
     communityservice = Communityservice.objects.get(id=pk)
 
@@ -356,7 +359,7 @@ def deleteCommunityservice(request, pk):
                   'base/internal/delete/delete-Communityservice.html',
                   context)
 
-
+@login_required(login_url='login')
 def addAwardsandhonors(request):
     form = Awardsandhonorsform()
 
@@ -371,7 +374,7 @@ def addAwardsandhonors(request):
                   'base/forms/Awardsandhonors_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def editAwardsandhonors(request, pk):
     awardsandhonors = Awardsandhonors.objects.get(id=pk)
     form = Awardsandhonorsform(instance=awardsandhonors)
@@ -387,7 +390,7 @@ def editAwardsandhonors(request, pk):
                   'base/forms/Awardsandhonors_form.html',
                   context)
 
-
+@login_required(login_url='login')
 def deleteAwardsandhonors(request, pk):
     awardsandhonors = Awardsandhonors.objects.get(id=pk)
 
@@ -401,6 +404,7 @@ def deleteAwardsandhonors(request, pk):
                   'base/internal/delete/delete-Awardsandhonors.html',
                   context)
 
+
 def loginUser(request):
     page = 'login'
     if request.method == 'POST':
@@ -411,19 +415,18 @@ def loginUser(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home')
+            return redirect('profile')
 
     return render(request, 'base/login_register.html', {'page': page})
-
 
 
 def logoutUser(request):
     logout(request)
     return redirect('login')
 
-
-def updateUser(request,pk):
-    user = User.objects.get(id=pk)
+@login_required(login_url='login')
+def updateUser(request, pk):
+    user = User.objects.get(username=pk)
     page = 'update'
     form = CustomUserCreationForm(instance=user)
     if request.method == 'POST':
@@ -431,7 +434,24 @@ def updateUser(request,pk):
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
+            login(request, user)
             return redirect('profile')
+
+    context = {'form': form, 'page': page}
+    return render(request, 'base/login_register.html', context)
+
+
+def addUser(request):
+    page = 'add'
+    form = CustomUserCreationForm()
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            if user is not None:
+                login(request, user)
+                return redirect('profile')
 
     context = {'form': form, 'page': page}
     return render(request, 'base/login_register.html', context)
