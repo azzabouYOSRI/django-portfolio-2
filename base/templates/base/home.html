@@ -8,7 +8,7 @@
 
                 <div class="hero--content--intro">
 
-                    <img src="{{ personalinfomation.profile_picture.url }}" alt="">
+                    <img id="hero-image" src="{{ personalinfomation.profile_picture.url }}" alt="">
                     <h1 class="intro--name">
                         {{ personalinfomation.name }}
                         <br> {{ personalinfomation.lastname }}
@@ -117,17 +117,23 @@
         </div>
     </section>
     <section>
+                        {% for transcript in transcripts %}
+
         <div>
+        <H2>  {{ transcripts.title }}</H2>
             <div>
-                {% for transcript in transcripts %}
                     <img class="skill--logo" src="{{ transcript.logo.url }}">
-                    <div>            {{ transcripts.title }}
+                    <div>
                     </div>
                     </div>
                     </section>
                     <section>
                     <div>
-                        {{ transcript.body }}
+                      <p> {{ transcript.body }} </p>
+                    {% if request.user.is_authenticated %}
+                            <a class="btn btn-warning" href="{% url 'edit-transcript' transcript.id %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'delete-transcript' transcript.id %}">Delete</a>
+                        {% endif %}
                     </div>
 
                 {% endfor %}
@@ -139,35 +145,47 @@
             {% for comunityservice in communityservices %}
                 <img class="skill--logo" src="{{ comunityservice.logo.url }}">
 
-                {{ comunityservice.title }}
+                <h2> {{ comunityservice.title }}</h2>
                 {{ comunityservice.body | safe }}
+                {% if request.user.is_authenticated %}
+                            <a class="btn btn-warning" href="{% url 'edit-community' comunityservice.id %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'delete-community' comunityservice.id %}">Delete</a>
+                        {% endif %}
             {% empty %}
                 <H3> No personalinfomation in the database yet </H3>
             {% endfor %}
         </div>
     </section>
-    <section class="section--3--contact">
+    <section class="section--2--contact">
         <div>
             {% for award in awardsandhonorss %}
                 <img class="skill--logo" src="{{ award.logo.url }}">
 
-                {{ award.title }}
-                {{ award.body }}
+                <H2>{{ award.title }}</H2>
+               <p>{{ award.body }}</p>
+                {% if request.user.is_authenticated %}
+                            <a class="btn btn-warning" href="{% url 'edit-award' award.id %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'delete-award' award.id %}">Delete</a>
+                        {% endif %}
             {% empty %}
                 <H3> No personalinfomation in the database yet </H3>
             {% endfor %}
         </div>
     </section>
-    <section class="section--4--contact">
+    <section class="section--2--contact">
         <div>
             <div>
                 {% for ref in refrences %}
                     <img class="skill--logo" src="{{ ref.thumbnail.url }}">
-                    {{ ref.name }}
-                    {{ ref.lastname }}
-                    {{ ref.body }}
-                    {{ ref.email }}
-                    {{ ref.phone }}
+                   <h2> {{ ref.name }} </h2>
+                   <p>{{ ref.lastname }}</p>
+                    <p>{{ ref.body }}</p>
+                    <p>{{ ref.email }}</p>{{ ref.email }}
+                    <p>{{ ref.phone }}</p>
+                    {% if request.user.is_authenticated %}
+                            <a class="btn btn-warning" href="{% url 'edit-refrence' ref.id %}">Edit</a>
+                            <a class="btn btn-danger" href="{% url 'delete-refrence' ref.id %}">Delete</a>
+                        {% endif %}
                 {% empty %}
                     <H3> No personalinfomation in the database yet </H3>
                 {% endfor %}

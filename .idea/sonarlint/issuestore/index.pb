@@ -11,14 +11,10 @@ _
 /base/templates/base/forms/endorsement_form.html,7/6/76fbc118f0e47dbde6ba70df16d97941fe54b0db
 Y
 )base/templates/base/forms/skill_form.html,a/4/a40e87571719231210a1167a8f8e1c25290cb32e
-F
-static/styles/main.css,8/4/840d61cc6547984840ba53233bb59f29c063f8c5
 g
 7base/templates/base/internal/delete/delete-Mission.html,e/d/ed177823b239b8aaed7be668dfacee53be2d6597
 e
 5base/templates/base/internal/delete/delete-Skill.html,9/e/9e3b75af30fcb475a99b621747781dcd41ff3dd3
-G
-static/styles/main2.css,4/4/4452161901ef06586c1797b10273cfd5f1e88454
 H
 portfoliowebsite/wsgi.py,5/d/5d7a7fc49760bc624a4824c805f92f560b974ee6
 g
@@ -33,8 +29,6 @@ w
 G.idea/sonarlint/issuestore/a/4/a40e87571719231210a1167a8f8e1c25290cb32e,8/4/84c7eae46360a81f47d22d7735d5a5290592a27b
 d
 4base/templates/base/internal/delete/delete-User.html,b/c/bc9c3bd450484c215a86a53c7a184f757f50c7d8
-w
-G.idea/sonarlint/issuestore/8/4/840d61cc6547984840ba53233bb59f29c063f8c5,5/a/5a2b14db7067123b149fe8ff05fe54513f254097
 p
 @base/templates/base/internal/delete/delete-Communityservice.html,d/8/d8a320fd9feb9143375c3d3607d9899a9672baac
 i
@@ -55,8 +49,6 @@ o
 ?base/templates/base/internal/delete/delete-Awardsandhonors.html,d/5/d54b38b12fde5cfd6964820e3c22300ca0a70f50
 w
 G.idea/sonarlint/issuestore/d/f/dfdc77027540086b82319267b167cfead1cd3906,b/4/b4aa97b76adc8ee2cc82c396a2bb3b882a8ce002
-w
-G.idea/sonarlint/issuestore/4/4/4452161901ef06586c1797b10273cfd5f1e88454,e/c/ec1e0e47f6f405d463782843ef77425892a7026c
 w
 G.idea/sonarlint/issuestore/1/e/1e9075f5bf079c01ef2c910709e91a497d262080,2/5/2511a7590eb091d560dac1615e6bcef0ceeaffb6
 w
@@ -95,3 +87,11 @@ W
 'base/templates/base/internal/inbox.html,b/a/ba37baf6c7d2ec7e885d1204e742ed6b45b92341
 K
 base/migrations/__init__.py,1/8/18a9d7f7ee96ec8b3816dd378e4fd8b5f64dbc59
+<
+base/urls.py,1/d/1d5c58c9ce97bebb17761793282b0e3a9226391d
+<
+base/apps.py,5/d/5d45bbbb4003eb4d41fbfa753b7f83374fb9b0f7
+G
+static/styles/main2.css,4/4/4452161901ef06586c1797b10273cfd5f1e88454
+=
+base/views.py,1/a/1a6e5c9e4b3932c9102d5deff09dedd83e406b08
